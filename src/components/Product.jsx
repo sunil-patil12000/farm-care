@@ -3,9 +3,12 @@ import { faker } from '@faker-js/faker'
 
 
 
-function Product() {f
+function Product() {
 
-    const [cartr, setcartr] = useState(second)
+    const [cartr, setcartr] = useState(()=>{
+        const existingCart = sessionStorage.getItem('cart');
+    return existingCart ? JSON.parse(existingCart) : [];
+    })
 
 
 
