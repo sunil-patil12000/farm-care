@@ -1,14 +1,24 @@
 import { faker } from '@faker-js/faker'
+import { useState } from 'react'
+
 
 
 
 
 function Product() {
 
-    const [cartr, setcartr] = useState(()=>{
+    const [cart, setCart] = useState(() => {
         const existingCart = sessionStorage.getItem('cart');
-    return existingCart ? JSON.parse(existingCart) : [];
+        return existingCart ? JSON.parse(existingCart) : [];
     })
+
+
+
+    const addToCart = (item) => {
+        const updatedCart = [...cart, item];
+        setCart(updatedCart);
+        sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
 
 
 
@@ -101,18 +111,6 @@ function Product() {
 
 
 
-        const data = sessionStorage.getItem('cart');
-
-        data = JSON.parse(data);
-
-
-
-        data.push(product)
-
-
-        sessionStorage.setItem('cart', JSON.stringify(data))
-
-
 
 
 
@@ -151,7 +149,7 @@ function Product() {
                                     <h3>{product.name}</h3>
 
                                     <span style={{ marginTop: '.5rem' }} >₹{product.price}</span>
-                                    <button style={{ marginTop: '.5rem' }} onClick={() => { handleadd(product) }} >Add to Cart</button>
+                                    <button style={{ marginTop: '.5rem' }} onClick={() => { addToCart(products) }} >Add to Cart</button>
                                 </div>
                             </div></div>
                     ))}

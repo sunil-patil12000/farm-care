@@ -4,11 +4,15 @@ import "./CartPage.css";
 
 
 const Cart = () => {
-    const [cartItems, setCartItems] = useState([
-        { id: 1, name: "Product 1", price: 10, quantity: 1, image: faker.image.cats() },
-        { id: 2, name: "Product 2", price: 15, quantity: 2, image: faker.image.cats() },
-        { id: 3, name: "Product 3", price: 20, quantity: 3, image: faker.image.cats() },
-    ]);
+    const df = JSON.parse(sessionStorage.getItem('cart'))
+    const [cartItems, setCartItems] = useState(...df);
+
+
+
+
+
+
+
 
     const handleQuantityChange = (itemId, value) => {
         setCartItems((prevCartItems) =>

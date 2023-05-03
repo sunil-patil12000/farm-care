@@ -28,6 +28,12 @@ const Nav = () => {
    }
 
 
+
+   const cartd = JSON.parse(sessionStorage.getItem('cart'))
+
+
+
+
    return (
       <>
 
@@ -60,7 +66,7 @@ const Nav = () => {
                         <a class={`nav-link`} href="/login">Login</a>
                      </li>
                      <li class="nav-item" >
-                        <a style={{ color: 'white' }} href="/cart" type="button" class="btn btn-secondary"><FaShoppingCart /></a>
+                        <a style={{ color: 'white' }} href="/cart" type="button" class="btn btn-secondary"><FaShoppingCart /> </a>
 
 
                      </li>
