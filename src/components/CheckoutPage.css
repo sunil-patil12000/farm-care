@@ -57,9 +57,9 @@ input[type="tel"] {
 }
 
 .item-image {
-  width: 80px;
-  height: 80px;
-  background-color: #ccc;
+  width: 10rem;
+  height: 8rem;
+  /* background-color: #dd1a1a; */
   margin-right: 10px;
 }
 

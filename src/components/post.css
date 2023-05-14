@@ -1,0 +1,115 @@
+.agricultural-disease-post {
+    background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: 0 auto; /* Add this line to center horizontally */
+  width: 80%; /* Set the width to 80% */
+  max-width: 960px; /* Add this line to limit the maximum width */
+  }
+  
+  .disease-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .disease-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .disease-description {
+    margin-bottom: 20px;
+    color: #666;
+    text-align: center;
+  }
+  
+  .disease-details {
+    width: 100%;
+  }
+  
+  .section-heading {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .section-heading::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background-color: #333;
+    margin-top: 5px;
+  }
+  
+  .symptoms,
+  .treatment,
+  .prevention {
+    margin-bottom: 15px;
+  }
+  
+  .symptoms p,
+  .treatment p,
+  .prevention p {
+    margin: 0;
+    
+  }
+  
+  .symptoms::before,
+  .treatment::before,
+  .prevention::before {
+    content: '\2022';
+    color: #333;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+  }
+  
+  .prevention p:last-child {
+    margin-bottom: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .agricultural-disease-post {
+      padding: 10px;
+      margin: 10px;
+    }
+  
+    .disease-name {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+  
+    .disease-description {
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+  
+    .section-heading {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+  
+    .section-heading::after {
+      width: 30px;
+      height: 1px;
+      margin-top: 3px;
+    }
+  
+    .symptoms,
+    .treatment,
+    .prevention {
+      margin-bottom: 10px;
+    }
+  }
+  

@@ -18,11 +18,23 @@ import Order from './components/Order'
 import CheckOut from './components/CheckOut'
 import single from './components/[id]'
 import Cart from './components/Cart'
+import ProductUploadPage from './Admin/ProductsUploading'
+import AgriculturalDiseasesForm from './Admin/DiseBlog'
+import Post from './components/Post'
 
 
 
 
 function App() {
+
+  const disease = {
+    name: 'Example Disease',
+    symptoms: 'Fever, yellowing of leaves, wilting',
+    treatment: 'Apply fungicide, prune affected areas',
+    prevention: 'Ensure proper drainage, use disease-resistant varieties',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac lorem at ipsum faucibus eleifend ac non lacus. Curabitur ullamcorper eros at egestas fermentum.',
+    image: 'example.jpg',
+  };
 
 
   return (
@@ -38,8 +50,15 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/contect' element={<Conect />} />
+        <Route path='/upload' element={<ProductUploadPage />} />
+        <Route path='/uploadBlog' element={<AgriculturalDiseasesForm />} />
 
-        <Route path='/blog' element={<Disege />} />
+        <Route path='/blog' element={<Post name={disease.name}
+        symptoms={disease.symptoms}
+        treatment={disease.treatment}
+        prevention={disease.prevention}
+        description={disease.description}
+        image={disease.image} />} />
         <Route path='/products' element={<Product />} />
         <Route path='/order' element={<Order />} />
         <Route path='/cart' element={<Cart />} />

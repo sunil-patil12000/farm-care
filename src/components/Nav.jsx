@@ -1,14 +1,6 @@
 import { FaShoppingCart } from "react-icons/fa";
-import { AiFillDelete } from "react-icons/ai";
-import {
-   Badge,
-   Button,
-   Container,
-   Dropdown,
-   FormControl,
-   Navbar,
-} from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+
+
 
 import "./styles.css";
 import Cookies from "js-cookie";
@@ -59,12 +51,25 @@ const Nav = () => {
                      <li class="nav-item">
                         <a class="nav-link" href="/products">Products</a>
                      </li>
-                     <li class="nav-item">
+                     
+                     {
+                        !Cookies.get('user') ? (<>
+                        
+                        <li class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
                      </li>
-                     <li class="nav-item">
-                        <a class={`nav-link`} href="/login">Login</a>
-                     </li>
+
+
+                         <li class="nav-item">
+                           <a class={`nav-link`} href="/login">Login</a>
+                        </li>
+                        
+                        </>) : (<> <li class="nav-item">
+                           <a class={`nav-link`} onClick={() => { Cookies.remove('user') 
+                         window.location.reload(false);
+                        }}>Logout</a>
+                        </li></>)
+                     }
                      <li class="nav-item" >
                         <a style={{ color: 'white' }} href="/cart" type="button" class="btn btn-secondary"><FaShoppingCart /> </a>
 

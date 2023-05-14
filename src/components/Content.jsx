@@ -1,4 +1,4 @@
-import Cookies from "js-cookie"
+
 import Carouse from "../test/Carouse";
 import { faker } from '@faker-js/faker';
 
@@ -37,6 +37,10 @@ const Content = ({ products }) => {
 
 
 
+
+   
+
+
    return (
       <>
 
@@ -65,8 +69,8 @@ const Content = ({ products }) => {
             </div>
 
             <div class="portfolio-main">
-               <h2>Our Products</h2>
-               <Carouse products={products} />
+               <h2>Products</h2>
+               <Carouse/>
                <div className="" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <a href={'/products'}> Viwe All</a>
                </div>

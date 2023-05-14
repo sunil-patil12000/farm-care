@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './CheckoutPage.css'; 
-
+import './CheckoutPage.css';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 const CheckOut = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -8,10 +9,35 @@ const CheckOut = () => {
   const [phone, setPhone] = useState('');
   const [pinCode, setPinCode] = useState('');
   const [email, setEmail] = useState('');
+  const [id, setId] = useState(JSON.parse(Cookies.get('user')));
+
+
+  const [cart, setCart] = useState(JSON.parse(sessionStorage.getItem('cart')));
+  const [total, setTotal] = useState(JSON.parse(sessionStorage.getItem('total')));
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
+    
+
+    axios.post("http://localhost:4545/order",{
+      lid:id,
+      fname:firstName,
+      lname:lastName,
+      phone:phone,
+      address:address,
+      pincode:pinCode,
+      email:email,
+      products:cart,
+      total:total
+
+    }).then((res)=>{
+      console.log(res);
+    }).catch((e)=>console.log(e))
+
+
+
+
   };
 
   return (
@@ -49,25 +75,29 @@ const CheckOut = () => {
         <div className="col-6">
           <div className="order-summary">
             <h2 className="heading">Order Summary</h2>
-            <div className="item">
-              <div className="item-image"></div>
-              <div className="item-details">
-                <h3 className="item-name">Product Name</h3>
-                <p className="item-price">₹4999</p>
-              </div>
-            </div>
-            <div className="item">
-              <div className="item-image"></div>
-              <div className="item-details">
-                <h3 className="item-name">Product Name</h3>
-                <p className="item-price">₹2999</p>
-              </div>
-            </div>
+
+            {
+
+              cart.map((item, i) => {
+                return (
+                  <div className="item">
+                    <div className="item-image">
+                      <img className='item-image' src={item.image} alt="" />
+                    </div>
+                    <div className="item-details">
+                      <h3 className="item-name">{item.name}</h3>
+                      <p className="item-price">₹{item.price}</p>
+                    </div>
+                  </div>
+
+                )
+              })
+            }
             <div className="total">
               <p className="total-label">Total</p>
-              <p className="total-price">₹7998</p>
+              <p className="total-price">₹{sessionStorage.getItem('total')}</p>
             </div>
-            <button className="place-order-button">Place Order</button>
+            <button className="place-order-button" onClick={handleSubmit}>Place Order</button>
           </div>
         </div>
       </div>

@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import './LoginPage.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,15 +18,25 @@ const Login = () => {
     }).then((res) => {
 
 
-      const data = JSON.stringify(res.data)
 
-      Cookies.set('users', data)
+
+      console.log(Cookies.get('user'))
+      if (res.data === 'password miss match' || res.data === 'login data not available') {
+
+        alert(res.data)
+        
+      }
+      else {
+        Cookies.set('user', JSON.stringify(res.data))
+        navigate('/')
+        // window.location.reload(false);
+      }
 
 
     })
 
 
-    console.log(`Email: ${email}, Password: ${password}`);
+
 
   }
 
