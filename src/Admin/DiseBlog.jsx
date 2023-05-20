@@ -1,38 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './af.css';
+import axios from 'axios';
 
-const AgriculturalDiseasesForm = ({ onFormSubmit }) => {
+const AgriculturalDiseasesForm = () => {
   const [name, setName] = useState('');
   const [symptoms, setSymptoms] = useState('');
   const [treatment, setTreatment] = useState('');
   const [prevention, setPrevention] = useState('');
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(null);
 
-  const handleSubmit = (e) => {
+
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a new disease object
-    const newDisease = {
-      name,
-      symptoms,
-      treatment,
-      prevention,
-      description,
-      image,
-    };
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('symptoms', symptoms);
+      formData.append('treatment', treatment);
+      formData.append('prevention', prevention);
+      formData.append('description', description);
+      formData.append('image', image);
 
-    // Pass the new disease object to the onFormSubmit callback function
-    onFormSubmit(newDisease);
-
-    // Reset form fields
-    setName('');
-    setSymptoms('');
-    setTreatment('');
-    setPrevention('');
-    setDescription('');
-    setImage('');
+      const response = await axios.post('http://localhost:4545/uploadblog', formData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+
+
+
+
+
+  const filechenge = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+
+
+
+
+
 
   return (
     <form className="agricultural-diseases-form" onSubmit={handleSubmit}>
@@ -86,11 +99,10 @@ const AgriculturalDiseasesForm = ({ onFormSubmit }) => {
       <div className="form-group">
         <label htmlFor="image">Image:</label>
         <input
-        className='input-field'
+          className='input-field'
           type="file"
           id="image"
-          value={image}
-          onChange={(e) => setImage(URL.createObjectURL(e.target.files[0]))}
+          onChange={(e) => filechenge(e)}
           required
         />
       </div>
@@ -100,3 +112,9 @@ const AgriculturalDiseasesForm = ({ onFormSubmit }) => {
 };
 
 export default AgriculturalDiseasesForm;
+
+
+
+
+
+

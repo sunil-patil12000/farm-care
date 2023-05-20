@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './CheckoutPage.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import ThankYouPage from './ThankYou';
+import { useNavigate } from 'react-router-dom';
 const CheckOut = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -11,6 +13,7 @@ const CheckOut = () => {
   const [email, setEmail] = useState('');
   const [id, setId] = useState(JSON.parse(Cookies.get('user')));
 
+  const navigate =useNavigate();
 
   const [cart, setCart] = useState(JSON.parse(sessionStorage.getItem('cart')));
   const [total, setTotal] = useState(JSON.parse(sessionStorage.getItem('total')));
@@ -18,22 +21,28 @@ const CheckOut = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
-    
 
-    axios.post("http://localhost:4545/order",{
-      lid:id,
-      fname:firstName,
-      lname:lastName,
-      phone:phone,
-      address:address,
-      pincode:pinCode,
-      email:email,
-      products:cart,
-      total:total
 
-    }).then((res)=>{
+    axios.post("http://localhost:4545/order", {
+      lid: id,
+      fname: firstName,
+      lname: lastName,
+      phone: phone,
+      address: address,
+      pincode: pinCode,
+      email: email,
+      products: cart,
+      total: total
+
+    }).then((res) => {
       console.log(res);
-    }).catch((e)=>console.log(e))
+      if (res.status === 200) {
+
+        sessionStorage.removeItem('cart');
+        sessionStorage.removeItem('total');
+        navigate('/thankyou')
+      }
+    }).catch((e) => console.log(e))
 
 
 
@@ -68,7 +77,7 @@ const CheckOut = () => {
             </div>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
           </form>
         </div>

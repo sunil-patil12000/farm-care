@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     MDBCard,
     MDBCardBody,
@@ -13,160 +13,167 @@ import {
     MDBTypography,
 } from "mdb-react-ui-kit";
 import './orders.css'
+import Cookies from 'js-cookie'
+import axios from 'axios'
 
 function Order() {
+
+    const [data, setData] = useState([]);
+
+
+    useEffect(() => {
+
+
+        const data = () => {
+            let lid = JSON.parse(Cookies.get('user'))
+
+            axios.post('http://localhost:4545/orders/my', {
+                lid: lid
+            }).then(
+                (res) => {
+                    console.log(res)
+                    setData(res.data);
+                }
+            ).catch(
+                (err) => {
+                    console.log(err)
+                }
+            )
+
+        }
+        data()
+    }, [])
+
+
+
+    console.log(data)
+
+
+
+
+
     return (
         <section
             className="h-100 gradient-custom"
             style={{ backgroundColor: "#eee" }}
         >
-            <MDBContainer className="py-5 h-100">
-                <MDBRow className="justify-content-center align-items-center h-100">
-                    <MDBCol lg="10" xl="8">
-                        <MDBCard style={{ borderRadius: "10px" }}>
-                            <MDBCardHeader className="px-4 py-5">
-                                <MDBTypography tag="h5" className="text-muted mb-0">
-                                    Thanks for your Order,{" "}
-                                    <span style={{ color: "#a8729a" }}>Anna</span>!
-                                </MDBTypography>
-                            </MDBCardHeader>
-                            <MDBCardBody className="p-4">
-                                <div className="d-flex justify-content-between align-items-center mb-4">
-                                    <p
-                                        className="lead fw-normal mb-0"
-                                        style={{ color: "#a8729a" }}
-                                    >
-                                        Receipt
-                                    </p>
-                                    <p className="small text-muted mb-0">
-                                        Receipt Voucher : 1KAU9-84UIL
-                                    </p>
-                                </div>
+           {
+            data.map((itrem,i)=>{
+                return(
+                    <MDBContainer className="py-5 h-100">
+                    <MDBRow className=" flex justify-content-center align-items-center h-100 " >
+                        <MDBCol lg="10" xl="8">
+                            <MDBCard style={{ borderRadius: "10px", width:'50vw' }}>
+                                <MDBCardHeader className="px-4 py-5">
+                                    <MDBTypography tag="h5" className="text-muted mb-0">
+                                        Thanks for your Order,{" "}
+                                        <span style={{ color: "#a8729a" }}>{itrem.fname+" "+itrem.lname}</span>!
+                                    </MDBTypography>
+                                </MDBCardHeader>
+                                <MDBCardBody className="p-4">
+                                    <div className="d-flex justify-content-between align-items-center mb-4">
+                                        <p
+                                            className="lead fw-normal mb-0"
+                                            style={{ color: "#a8729a" }}
+                                        >
+                                            Receipt
+                                        </p>
+                                        
+                                    </div>
+    
+                                    
+                                            {
+                                                itrem.products.map((dt,inx)=>{
+                                                    return(
+                                                        <MDBCard className="shadow-0 border mb-4 w-100">
+                                        <MDBCardBody>
+                                                    
+                                                        <MDBRow>
+                                                <MDBCol md="2">
+                                                    <MDBCardImage
+                                                        src={dt.image}
+                                                        fluid
+                                                        alt="Phone"
 
-                                <MDBCard className="shadow-0 border mb-4">
-                                    <MDBCardBody>
-                                        <MDBRow>
-                                            <MDBCol md="2">
-                                                <MDBCardImage
-                                                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp"
-                                                    fluid
-                                                    alt="Phone"
-                                                />
-                                            </MDBCol>
-                                            <MDBCol
-                                                md="2"
-                                                className="text-center d-flex justify-content-center align-items-center"
-                                            >
-                                                <p className="text-muted mb-0">Samsung Galaxy</p>
-                                            </MDBCol>
-                                            
-                                            
-                                            <MDBCol
-                                                md="2"
-                                                className="text-center d-flex justify-content-center align-items-center"
-                                            >
-                                                <p className="text-muted mb-0 small">Qty: 1</p>
-                                            </MDBCol>
-                                            <MDBCol
-                                                md="2"
-                                                className="text-center d-flex justify-content-center align-items-center"
-                                            >
-                                                <p className="text-muted mb-0 small">₹499</p>
-                                            </MDBCol>
-                                        </MDBRow>
+                                                        style={{width:'20rem'}}
+                                                    />
+                                                </MDBCol>
+                                                <MDBCol
+                                                    md="2"
+                                                    className="text-center d-flex justify-content-center align-items-center mr-6"
+                                                    st
+                                                >
+                                                    <p className="text-muted mb-0">{dt.name}</p>
+                                                </MDBCol>
+    
+    
+                                                <MDBCol
+                                                    md="2"
+                                                    className="text-center d-flex justify-content-center align-items-center"
+                                                >
+                                                    <p className="text-muted mb-0 small">Qty: 1</p>
+                                                </MDBCol>
+                                                <MDBCol
+                                                    md="2"
+                                                    className="text-center d-flex justify-content-center align-items-center"
+                                                >
+                                                    <p className="text-muted mb-0 small">{dt.price}</p>
+                                                </MDBCol>
+                                            </MDBRow>
+                                            </MDBCardBody>
+                                    </MDBCard>
+                                                        )
+                                                })
+                                            }
+    
+    
+                                        
+    
+                                   
+                                    <div className="d-flex justify-content-between pt-2">
+                                        <p className="fw-bold mb-0">Order Details</p>
                                        
-                                        
-                                    </MDBCardBody>
-                                </MDBCard>
-
-                                <MDBCard className="shadow-0 border mb-4">
-                                    <MDBCardBody>
-                                        <MDBRow>
-                                            <MDBCol md="2">
-                                                <MDBCardImage
-                                                    src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
-                                                    fluid
-                                                    alt="Phone"
-                                                />
-                                            </MDBCol>
-                                            <MDBCol
-                                                md="2"
-                                                className="text-center d-flex justify-content-center align-items-center"
-                                            >
-                                                <p className="text-muted mb-0">iPad</p>
-                                            </MDBCol>
-                                            
-                                        
-                                            <MDBCol
-                                                md="2"
-                                                className="text-center d-flex justify-content-center align-items-center"
-                                            >
-                                                <p className="text-muted mb-0 small">Qty: 1</p>
-                                            </MDBCol>
-                                            <MDBCol
-                                                md="2"
-                                                className="text-center d-flex justify-content-center align-items-center"
-                                            >
-                                                <p className="text-muted mb-0 small">₹399</p>
-                                            </MDBCol>
-                                        </MDBRow>
-                                        
+                                    </div>
+    
+                                    <div className="d-flex justify-content-between pt-2">
+                                        <p className="text-muted mb-0">Invoice Number : {itrem._id}</p>
                                        
-                                    </MDBCardBody>
-                                </MDBCard>
-
-                                <div className="d-flex justify-content-between pt-2">
-                                    <p className="fw-bold mb-0">Order Details</p>
-                                    <p className="text-muted mb-0">
-                                        <span className="fw-bold me-4">Total</span> ₹898.00
-                                    </p>
-                                </div>
-
-                                <div className="d-flex justify-content-between pt-2">
-                                    <p className="text-muted mb-0">Invoice Number : 788152</p>
-                                    <p className="text-muted mb-0">
-                                        <span className="fw-bold me-4">Discount</span> ₹19.00
-                                    </p>
-                                </div>
-
-                                <div className="d-flex justify-content-between">
-                                    <p className="text-muted mb-0">
-                                        Invoice Date : 22 Dec,2019
-                                    </p>
-                                    <p className="text-muted mb-0">
-                                        <span className="fw-bold me-4">GST 18%</span> 123
-                                    </p>
-                                </div>
-
-                                <div className="d-flex justify-content-between mb-5">
-                                    <p className="text-muted mb-0">
-                                        Recepits Voucher : 18KU-62IIK
-                                    </p>
-                                    <p className="text-muted mb-0">
-                                        <span className="fw-bold me-4">Delivery Charges</span>{" "}
-                                        Free
-                                    </p>
-                                </div>
-                            </MDBCardBody>
-                            <MDBCardFooter
-                                className="border-0 px-4 py-5"
-                                style={{
-                                    backgroundColor: "green",
-                                    borderBottomLeftRadius: "10px",
-                                    borderBottomRightRadius: "10px",
-                                }}
-                            >
-                                <MDBTypography
-                                    tag="h5"
-                                    className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0"
+                                    </div>
+    
+                                    <div className="d-flex justify-content-between">
+                                        <p className="text-muted mb-0">
+                                            Invoice Date : {itrem.createdAt.substring(0,10)}
+                                        </p>
+                                        
+                                    </div>
+    
+                                    <div className="d-flex justify-content-between mb-5">
+                                      
+                                      
+                                    </div>
+                                </MDBCardBody>
+                                <MDBCardFooter
+                                    className="border-0 px-4 py-5"
+                                    style={{
+                                        backgroundColor: "green",
+                                        borderBottomLeftRadius: "10px",
+                                        borderBottomRightRadius: "10px",
+                                    }}
                                 >
-                                    Total paid: <span className="h2 mb-0 ms-2"> ₹1040</span>
-                                </MDBTypography>
-                            </MDBCardFooter>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>
+                                    <MDBTypography
+                                        tag="h5"
+                                        className="d-flex align-items-center justify-content-end text-white text-uppercase mb-0"
+                                    >
+                                        Total paid: <span className="h2 mb-0 ms-2"> {itrem.total}</span>
+                                    </MDBTypography>
+                                </MDBCardFooter>
+                            </MDBCard>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBContainer>
+                )
+            })
+           }
         </section>
 
     )

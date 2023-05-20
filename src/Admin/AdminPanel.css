@@ -1,0 +1,73 @@
+.admin-panel {
+  height: 90vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.sidebar {
+  background-color: #252525;
+  height: 90vh;
+  padding-top: 20px;
+  overflow: hidden;
+  color: #fff;
+  padding-left: 2rem;
+  width: 15rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 20px;
+}
+
+.sidebar li {
+  margin-bottom: 2rem;
+  margin-left: 0.5rem;
+}
+
+.sidebar a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: larger;
+  font-weight: 600;
+}
+
+.sidebar a:hover {
+  color: #666;
+}
+
+.main-content {
+  padding: 20px;
+}
+
+.card {
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: #f1f1f1;
+  border-radius: 5px 5px 0 0;
+  font-weight: bold;
+  padding: 10px 15px;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 32px;
+  margin-bottom: 0;
+}
+.adname {
+  display: flex;
+}
+.adname h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: lightgreen;
+  margin-left: 0.5rem;
+}

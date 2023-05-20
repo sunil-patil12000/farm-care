@@ -1,11 +1,13 @@
 import { faker } from '@faker-js/faker'
-import { useState } from 'react'
+import axios from 'axios';
+import { useEffect, useState } from 'react'
 
 
 
 
 function Product() {
 
+    const [products, setProducts] = useState([])
 
 
     const [quantity, setQuantity] = useState(1);
@@ -28,81 +30,92 @@ function Product() {
         console.log(cart2)
     };
 
+    useEffect(() => {
 
 
-    const products = [
-        {
-
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.imageUrl(640, 480, 'farming'),
-            price: faker.commerce.price(),
-        },
-        {
-
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.nature(),
-            price: faker.commerce.price()
-        },
-        {
-
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.nature(),
-            price: faker.commerce.price()
-        },
-        {
-
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.nature(),
-            price: faker.commerce.price()
-        },
-        {
-
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.nature(),
-            price: faker.commerce.price()
-        },
-        {
-
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.imageUrl(640, 480, 'farming'),
-            price: faker.commerce.price(),
-        },
-        {
-
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.nature(),
-            price: faker.commerce.price()
-        },
-        {
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.nature(),
-            price: faker.commerce.price()
-        },
-        {
-
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.nature(),
-            price: faker.commerce.price()
-        },
-        {
-
-            name: faker.commerce.productName(),
-            description: faker.commerce.productDescription(),
-            image: faker.image.nature(),
-            price: faker.commerce.price()
-        },
+        const test = () => {
+            axios.get('http://localhost:4545/api/products').then((res) => {
+                setProducts(res.data)
+                console.log(res);
+            })
+        }
+        test()
+    }, [])
 
 
-    ];
+    // const products = [
+    //     {
+
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.imageUrl(640, 480, 'farming'),
+    //         price: faker.commerce.price(),
+    //     },
+    //     {
+
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.nature(),
+    //         price: faker.commerce.price()
+    //     },
+    //     {
+
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.nature(),
+    //         price: faker.commerce.price()
+    //     },
+    //     {
+
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.nature(),
+    //         price: faker.commerce.price()
+    //     },
+    //     {
+
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.nature(),
+    //         price: faker.commerce.price()
+    //     },
+    //     {
+
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.imageUrl(640, 480, 'farming'),
+    //         price: faker.commerce.price(),
+    //     },
+    //     {
+
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.nature(),
+    //         price: faker.commerce.price()
+    //     },
+    //     {
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.nature(),
+    //         price: faker.commerce.price()
+    //     },
+    //     {
+
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.nature(),
+    //         price: faker.commerce.price()
+    //     },
+    //     {
+
+    //         name: faker.commerce.productName(),
+    //         description: faker.commerce.productDescription(),
+    //         image: faker.image.nature(),
+    //         price: faker.commerce.price()
+    //     },
+
+
+    // ];
 
 
 
@@ -149,14 +162,17 @@ function Product() {
 
 
                     {products.map((product, index) => (
-                        <div className="col-lg-3" style={{ marginTop: '1rem' }}>
+                        <div className="col-lg-3" style={{ marginTop: '1rem', margin: '2rem' }}>
                             <div className="product-card" key={index}>
-                                <img src={product.image} style={{ height: '10rem', }} alt={product.name} />
+                                <img src={'http://localhost:4545/' + product.path} style={{ height: '10rem', }} alt={product.title} />
                                 <div className="product-details">
-                                    <h3>{product.name}</h3>
+                                    <h3>{product.title}</h3>
 
                                     <span style={{ marginTop: '.5rem' }} >₹{product.price}</span>
-                                    <button style={{ marginTop: '.5rem' }} onClick={() => { addToCart(products, index) }} >Add to Cart</button>
+                                    <button style={{ marginTop: '.5rem' }} onClick={(e) => {
+                                        e.preventDefault()
+                                        addToCart(products, index)
+                                    }} >Add to Cart</button>
                                 </div>
                             </div></div>
                     ))}

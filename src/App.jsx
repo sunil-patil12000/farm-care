@@ -22,6 +22,11 @@ import ProductUploadPage from './Admin/ProductsUploading'
 import AgriculturalDiseasesForm from './Admin/DiseBlog'
 import Post from './components/Post'
 
+import './test/deploy'
+import AdminLogin from './Admin/AdminLogin'
+import AdminPanel from './Admin/Dashboard'
+import ThankYouPage from './components/ThankYou'
+
 
 
 
@@ -50,20 +55,25 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/contect' element={<Conect />} />
+        <Route path='/admin' element={<AdminLogin />} />
+        <Route path='/blog' element={<Disege />} />
         <Route path='/upload' element={<ProductUploadPage />} />
+        <Route path='/dashboard' element={<AdminPanel />} />
+        <Route path='/thankyou' element={<ThankYouPage />} />
         <Route path='/uploadBlog' element={<AgriculturalDiseasesForm />} />
 
-        <Route path='/blog' element={<Post name={disease.name}
-        symptoms={disease.symptoms}
-        treatment={disease.treatment}
-        prevention={disease.prevention}
-        description={disease.description}
-        image={disease.image} />} />
+        <Route path='/blog/:id' element={<Post name={disease.name}
+          symptoms={disease.symptoms}
+          treatment={disease.treatment}
+          prevention={disease.prevention}
+          description={disease.description}
+          image={disease.image} />} />
         <Route path='/products' element={<Product />} />
-        <Route path='/order' element={<Order />} />
+        <Route path='/orders' element={<Order />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/checkout' element={<CheckOut />} />
-        <Route path='/product/:id' element={<single />} />
+        {/* <Route path='/product/:id' element={<single />} /> */}
+        <Route path='/post/:id' element={<Post />} />
 
 
       </Routes>

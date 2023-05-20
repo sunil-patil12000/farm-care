@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './pu.css'
+import './pu.css';
+import axios from 'axios';
 
 const ProductUploadPage = () => {
   const [title, setTitle] = useState('');
@@ -20,11 +21,20 @@ const ProductUploadPage = () => {
   };
 
   const handleImageChange = (e) => {
-    setImage(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.files[0]);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('productimg', image);
+
+    const res = await axios.post('http://localhost:4545/api/product/add', formData);
+    console.log(res.data);
 
     // Perform product upload logic here
 
@@ -78,7 +88,7 @@ const ProductUploadPage = () => {
           className="input-field"
         />
 
-        {image && <img src={image} alt="Product" className="preview-image" />}
+        {image && <img src={URL.createObjectURL(image)} alt="Product" className="preview-image" />}
 
         <button type="submit" className="upload-button">Upload</button>
       </form>

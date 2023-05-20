@@ -1,44 +1,62 @@
 
+import { useEffect, useState } from "react";
 import Carouse from "../test/Carouse";
 import { faker } from '@faker-js/faker';
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const Content = ({ products }) => {
+const Content = () => {
 
+   const [service, setService] = useState([])
+   let navigate = useNavigate();
 
-   const service = [{
-      id: faker.datatype.uuid(),
-      name: faker.company.name(),
-      disp: faker.commerce.productDescription(),
-      img: "images/services-img-01.jpg"
-
-
-   },
+   useEffect(() => {
 
 
-   {
-      id: faker.datatype.uuid(),
-      name: faker.company.name(),
-      disp: faker.commerce.productDescription(),
-      img: "images/services-img-02.jpg"
+      const test = () => {
+         axios.get('http://localhost:4545/api/homedis').then((res) => {
+            setService(res.data)
+            console.log(res);
+         })
+      }
+      test()
+   }, [])
 
 
-   },
-   {
-      id: faker.datatype.uuid(),
-      name: faker.company.name(),
-      disp: faker.commerce.productDescription(),
-      img: "images/services-img-03.jpg"
+   // const service = [{
+   //    id: faker.datatype.uuid(),
+   //    name: faker.company.name(),
+   //    disp: faker.commerce.productDescription(),
+   //    img: "images/services-img-01.jpg"
 
 
-   },
+   // },
 
 
-   ]
+   // {
+   //    id: faker.datatype.uuid(),
+   //    name: faker.company.name(),
+   //    disp: faker.commerce.productDescription(),
+   //    img: "images/services-img-02.jpg"
+
+
+   // },
+   // {
+   //    id: faker.datatype.uuid(),
+   //    name: faker.company.name(),
+   //    disp: faker.commerce.productDescription(),
+   //    img: "images/services-img-03.jpg"
+
+
+   // },
+
+
+   // ]
 
 
 
 
-   
+
 
 
    return (
@@ -70,7 +88,7 @@ const Content = ({ products }) => {
 
             <div class="portfolio-main">
                <h2>Products</h2>
-               <Carouse/>
+               <Carouse />
                <div className="" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <a href={'/products'}> Viwe All</a>
                </div>
@@ -80,7 +98,7 @@ const Content = ({ products }) => {
 
 
             <div class="services-bar">
-               <h1 class="my-4">Our Best Services </h1>
+               <h1 class="my-4">Diseases </h1>
 
 
             </div>
@@ -89,27 +107,31 @@ const Content = ({ products }) => {
             <div class="row">
 
                {
-                  service.map((item) => {
-                     return (
+                  service == [] ? (<><p>No avalible</p></>) :
+
+                     (service.map((item, i) => {
+                        return (
 
 
-                        <div class="col-lg-4 mb-4" key={item.id}>
-                           <div class="card h-100">
-                              <h4 class="card-header">{item.name}</h4>
-                              <div class="card-img">
-                                 <img class="img-fluid" src={item.img} alt="" />
-                              </div>
-                              <div class="card-body">
-                                 <p class="card-text">{item.disp}</p>
-                              </div>
-                              <div class="card-footer">
-                                 <a href="#" class="btn btn-primary">Learn More</a>
+                           <div class="col-lg-4 mb-4" key={i}>
+                              <div class="card h-100">
+                                 <h4 class="card-header">{item.name}</h4>
+                                 <div class="card-img">
+                                    <img class="img-fluid" src={'http://localhost:4545/' + item.path} alt="" />
+                                 </div>
+                                 <div class="card-body">
+                                    <p class="card-text">{item.description.substring(0, 122)}</p>
+                                 </div>
+                                 <div class="card-footer">
+                                    <a href="#" class="btn btn-primary" onClick={() => {
+                                       navigate(`/post/${item._id}`)
+                                    }}>Learn More</a>
+                                 </div>
                               </div>
                            </div>
-                        </div>
 
-                     );
-                  })
+                        );
+                     }))
 
 
 
