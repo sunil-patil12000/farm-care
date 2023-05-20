@@ -22,12 +22,11 @@ function Product() {
 
 
     const addToCart = (item, index) => {
-        const cart2 = Object.assign(...item, { id: index });
-        const updatedCart = [...cart, cart2];
+        const cartItem = Object.assign({}, item, { id: index });
+        const updatedCart = [...cart, cartItem];
         setCart(updatedCart);
         sessionStorage.setItem('cart', JSON.stringify(updatedCart));
-
-        console.log(cart2)
+        console.log(cartItem);
     };
 
     useEffect(() => {
@@ -169,10 +168,16 @@ function Product() {
                                     <h3>{product.title}</h3>
 
                                     <span style={{ marginTop: '.5rem' }} >₹{product.price}</span>
-                                    <button style={{ marginTop: '.5rem' }} onClick={(e) => {
-                                        e.preventDefault()
-                                        addToCart(products, index)
-                                    }} >Add to Cart</button>
+                                    <button
+                                        style={{ marginTop: '.5rem' }}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            addToCart(product, index);
+                                        }}
+                                    >
+                                        Add to Cart
+                                    </button>
+
                                 </div>
                             </div></div>
                     ))}
@@ -199,3 +204,11 @@ function Product() {
 }
 
 export default Product
+
+
+
+
+
+
+
+
