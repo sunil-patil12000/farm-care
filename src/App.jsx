@@ -26,6 +26,7 @@ import './test/deploy'
 import AdminLogin from './Admin/AdminLogin'
 import AdminPanel from './Admin/Dashboard'
 import ThankYouPage from './components/ThankYou'
+import VideoCardList from './components/Videocard'
 
 
 
@@ -58,6 +59,7 @@ function App() {
         <Route path='/admin' element={<AdminLogin />} />
         <Route path='/blog' element={<Disege />} />
         <Route path='/upload' element={<ProductUploadPage />} />
+        <Route path='/video' element={<VideoCardList />} />
         <Route path='/dashboard' element={<AdminPanel />} />
         <Route path='/thankyou' element={<ThankYouPage />} />
         <Route path='/uploadBlog' element={<AgriculturalDiseasesForm />} />

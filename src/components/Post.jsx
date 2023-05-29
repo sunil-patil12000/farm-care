@@ -5,14 +5,14 @@ import { useParams } from 'react-router-dom';
 
 const Post = () => {
 
-  const {id}= useParams()
+  const { id } = useParams()
   console.log(id)
 
   const [post, setPost] = useState('');
   useEffect(() => {
-  
-    let test=  () => {
-      axios.get(`http://localhost:4545/post/${id}`).then((res)=>{
+
+    let test = () => {
+      axios.get(`http://localhost:4545/post/${id}`).then((res) => {
         console.log(res.data)
         setPost(res.data)
       })
@@ -20,7 +20,7 @@ const Post = () => {
     }
     test()
   }, [])
-  
+
 
 
 

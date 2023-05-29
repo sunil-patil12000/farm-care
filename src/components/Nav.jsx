@@ -35,7 +35,7 @@ const Nav = () => {
          <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-light top-nav fixed-top">
             <div class="container" style={{ maxHeight: '4rem' }}>
                <a class="navbar-brand" href="/">
-                  <span className="text-lg  font-bold" style={{color:'green',fontSize:'2rem',fontWeight:'bold',paddingBottom:'2rem'}}>RYTHA BANDHU</span>
+                  <span className="text-lg  font-bold" style={{ color: 'green', fontSize: '2rem', fontWeight: 'bold', paddingBottom: '2rem' }}>RYTHA BANDHU</span>
                </a>
                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="fas fa-bars"></span>
@@ -47,6 +47,9 @@ const Nav = () => {
                      </li>
                      <li class="nav-item">
                         <a class="nav-link" href="/about">About</a>
+                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="/about">Videos</a>
                      </li>
                      <li class="nav-item">
                         <a class="nav-link" href="/blog">Services</a>
