@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { faker } from "@faker-js/faker";
 import "./CartPage.css";
+import toast, { Toaster } from "react-hot-toast";
+
 
 
 
@@ -127,18 +129,26 @@ const Cart = () => {
         if (gj > 0) {
             sessionStorage.setItem('total', gj);
             if (!Cookies.get('user')) {
-                alert("First Login plz...")
+                toast.error("First Login")
+
             }
             else {
                 navigate('/checkout')
             }
 
         }
+        else {
+            toast.error("Add to cart Products")
+        }
 
     }
 
     return (
         <div className="cart-page">
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
             <h2 className="cart-heading">Cart</h2>
             {!cartItems ? (
                 {
