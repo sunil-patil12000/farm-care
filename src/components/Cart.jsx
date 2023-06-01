@@ -21,35 +21,51 @@ const Cart = () => {
 
 
 
-    const handleQuantityChange = (itemId, value) => {
-        setCartItems((prevCartItems) =>
-            prevCartItems.map((item) =>
-                item.id === itemId ? { ...item, qty: item.qty + value } : item
-            )
-        );
+    // const handleQuantityChange = (itemId, value) => {
+    //     setCartItems((prevCartItems) =>
+    //         prevCartItems.map((item) =>
+    //             item.id === itemId ? { ...item, qty: item.qty + value } : item
+    //         )
+    //     );
+    // };
+
+
+
+    const handleRemoveItem = (index) => {
+        setCartItems((prevCartItems) => {
+            const updatedCartItems = [...prevCartItems];
+            updatedCartItems.splice(index, 1);
+            return updatedCartItems;
+        });
     };
 
-    const handleRemoveItem = (itemId) => {
-        // setCartItems((prevCartItems) =>
-        //     prevCartItems.filter((item) => item.id !== itemId)
-        // );
 
 
 
 
-        for (let index = 0; index < df.length; index++) {
-            if (itemId === df[index]) {
-                df.splice(index, 1)
-                sessionStorage.setItem('cart', JSON.stringify(df))
 
 
-            };
-
-        }
+    // const handleRemoveItem = (itemId) => {
+    //     // setCartItems((prevCartItems) =>
+    //     //     prevCartItems.filter((item) => item.id !== itemId)
+    //     // );
 
 
 
-    };
+
+    //     for (let index = 0; index < df.length; index++) {
+    //         if (itemId === df[index]) {
+    //             df.splice(index, 1)
+    //             sessionStorage.setItem('cart', JSON.stringify(df))
+
+
+    //         };
+
+    //     }
+
+
+
+    // };
     useEffect(() => {
         sessionStorage.setItem('cart', JSON.stringify(cartItems));
         navigate('/cart')
@@ -105,19 +121,19 @@ const Cart = () => {
 
 
     function handlecheckout() {
-       
-            let gj = getTotalPrice()
-            console.log(gj)
-            if (gj>0) {
-                sessionStorage.setItem('total',gj);
-                if (!Cookies.get('user')) {
-                        alert("First Login plz...")         
-                }
-                else{
-                    navigate('/checkout')
-                }
-                
+
+        let gj = getTotalPrice()
+        console.log(gj)
+        if (gj > 0) {
+            sessionStorage.setItem('total', gj);
+            if (!Cookies.get('user')) {
+                alert("First Login plz...")
             }
+            else {
+                navigate('/checkout')
+            }
+
+        }
 
     }
 
@@ -125,28 +141,27 @@ const Cart = () => {
         <div className="cart-page">
             <h2 className="cart-heading">Cart</h2>
             {!cartItems ? (
-                <p className="empty-cart-msg">Your cart is empty.</p>
+                {
+
+                }
             ) : (
                 <div className="cart-items">
-                    {cartItems.map((item) => (
+                    {cartItems.map((item, index) => (
                         <div className="cart-item" key={item.id}>
                             <div className="item-image">
-                                <img src={'http://localhost:4545/'+item.path} alt={item.name} className="image" />
+                                <img src={'http://localhost:4545/' + item.path} alt={item.name} className="image" />
                             </div>
                             <div className="item-info">
                                 <p className="item-name">{item.title}</p>
                                 <p className="item-price">₹{item.price}</p>
                             </div>
-
                             <button
                                 className="remove-btn"
-                                onClick={() => {
-                                    handleRemoveItem(item.id)
-                                    removeFromCart(item.id)
-                                }
-                                }>
+                                onClick={() => handleRemoveItem(index)}
+                            >
                                 Remove
                             </button>
+
                         </div>
                     ))}
                     <div className="total-info">
@@ -157,7 +172,7 @@ const Cart = () => {
                         }</p>
                     </div>
 
-                    <button className="remove-btn" style={{ backgroundColor: 'blue' }} onClick={()=>handlecheckout()}>
+                    <button className="remove-btn" style={{ backgroundColor: 'blue' }} onClick={() => handlecheckout()}>
                         Checkout
                     </button>
                 </div>

@@ -1,214 +1,63 @@
-import { faker } from '@faker-js/faker'
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useEffect, useState } from 'react'
-
-
+import toast, { Toaster } from 'react-hot-toast';
 
 
 function Product() {
-
-    const [products, setProducts] = useState([])
-
-
-    const [quantity, setQuantity] = useState(1);
-
-
-
+    const [products, setProducts] = useState([]);
     const [cart, setCart] = useState(() => {
         const existingCart = sessionStorage.getItem('cart');
         return existingCart ? JSON.parse(existingCart) : [];
-    })
-
-
-
-    const addToCart = (item, index) => {
-        const cartItem = Object.assign({}, item, { id: index });
-        const updatedCart = [...cart, cartItem];
-        setCart(updatedCart);
-        sessionStorage.setItem('cart', JSON.stringify(updatedCart));
-        console.log(cartItem);
-    };
+    });
 
     useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get('http://localhost:4545/api/products');
+                setProducts(response.data);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
 
+        fetchProducts();
+    }, []);
 
-        const test = () => {
-            axios.get('http://localhost:4545/api/products').then((res) => {
-                setProducts(res.data)
-                console.log(res);
-            })
-        }
-        test()
-    }, [])
-
-
-    // const products = [
-    //     {
-
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.imageUrl(640, 480, 'farming'),
-    //         price: faker.commerce.price(),
-    //     },
-    //     {
-
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.nature(),
-    //         price: faker.commerce.price()
-    //     },
-    //     {
-
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.nature(),
-    //         price: faker.commerce.price()
-    //     },
-    //     {
-
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.nature(),
-    //         price: faker.commerce.price()
-    //     },
-    //     {
-
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.nature(),
-    //         price: faker.commerce.price()
-    //     },
-    //     {
-
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.imageUrl(640, 480, 'farming'),
-    //         price: faker.commerce.price(),
-    //     },
-    //     {
-
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.nature(),
-    //         price: faker.commerce.price()
-    //     },
-    //     {
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.nature(),
-    //         price: faker.commerce.price()
-    //     },
-    //     {
-
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.nature(),
-    //         price: faker.commerce.price()
-    //     },
-    //     {
-
-    //         name: faker.commerce.productName(),
-    //         description: faker.commerce.productDescription(),
-    //         image: faker.image.nature(),
-    //         price: faker.commerce.price()
-    //     },
-
-
-    // ];
-
-
-
-    const handleadd = (product) => {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-
+    const addToCart = (item) => {
+        const updatedCart = [...cart, item];
+        setCart(updatedCart);
+        sessionStorage.setItem('cart', JSON.stringify(updatedCart));
+        console.log(updatedCart);
+        toast.success('Successfully Add To Cart')
+    };
 
     return (
-        <>
-
-
-            <div className="container" style={{ display: 'flex', alignItems: 'center', marginTop: '2rem' }}>
-
-                <div className="row">
-
-
-
-
-                    {products.map((product, index) => (
-                        <div className="col-lg-3" style={{ marginTop: '1rem', margin: '2rem' }}>
-                            <div className="product-card" key={index}>
-                                <img src={'http://localhost:4545/' + product.path} style={{ height: '10rem', }} alt={product.title} />
-                                <div className="product-details">
-                                    <h3>{product.title}</h3>
-
-                                    <span style={{ marginTop: '.5rem' }} >₹{product.price}</span>
-                                    <button
-                                        style={{ marginTop: '.5rem' }}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            addToCart(product, index);
-                                        }}
-                                    >
-                                        Add to Cart
-                                    </button>
-
-                                </div>
-                            </div></div>
-                    ))}
-
-
-
-
-
-
-
-                </div>
-
-
-
+        <div className="container" style={{ display: 'flex', alignItems: 'center', marginTop: '2rem' }}>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
+            <div className="row">
+                {products.map((product, index) => (
+                    <div className="col-lg-3" style={{ marginTop: '1rem', margin: '2rem' }} key={index}>
+                        <div className="product-card">
+                            <img src={'http://localhost:4545/' + product.path} style={{ height: '10rem' }} alt={product.title} />
+                            <div className="product-details">
+                                <h3>{product.title}</h3>
+                                <span style={{ marginTop: '.5rem' }}>₹{product.price}</span>
+                                <button
+                                    style={{ marginTop: '.5rem' }}
+                                    onClick={() => addToCart(product)}
+                                >
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
-
-
-
-
-
-
-        </>
-    )
+        </div>
+    );
 }
 
-export default Product
-
-
-
-
-
-
-
-
+export default Product;
