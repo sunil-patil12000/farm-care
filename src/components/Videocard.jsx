@@ -1,14 +1,10 @@
-
-
+import React from 'react';
 import './VideoCard.css';
 
-
-
-var videoUrls = [
-    'https://www.youtube.com/embed/VIDEO_ID1',
-    'https://www.youtube.com/embed/VIDEO_ID2',
-    'https://www.youtube.com/embed/VIDEO_ID3',
-
+const videoUrls = [
+    'https://www.youtube.com/watch?v=MFfvzNj3LVU',
+    'https://youtu.be/MFfvzNj3LVU',
+    'https://www.youtube.com/embed/MFfvzNj3LVU',
 ];
 
 const VideoCard = ({ videoUrl }) => {
@@ -27,12 +23,13 @@ const VideoCard = ({ videoUrl }) => {
 
 const VideoCardList = () => {
     return (
-        <div className='container' style={{height:'80vh'}}>
+        <div className="container" style={{ height: '80vh' }}>
             <div className="video-card-list">
                 {videoUrls.map((url, index) => (
                     <VideoCard key={index} videoUrl={url} />
                 ))}
-            </div></div>
+            </div>
+        </div>
     );
 };
 

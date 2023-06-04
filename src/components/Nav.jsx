@@ -49,7 +49,7 @@ const Nav = () => {
                         <a class="nav-link" href="/about">About</a>
                      </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="/about">Videos</a>
+                        <a class="nav-link" href="/video">Videos</a>
                      </li>
                      <li class="nav-item">
                         <a class="nav-link" href="/blog">Services</a>
