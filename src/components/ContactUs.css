@@ -1,0 +1,53 @@
+/* ContactUs.css */
+
+.contact-us-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80vh;
+  min-width: 800px;
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.contact-us-img img {
+  max-width: 100%;
+  height: auto;
+}
+
+.contact-us-info {
+  flex-grow: 1;
+  padding: 0 50px;
+}
+
+.contact-us-info h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.contact-us-info p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.contact-item i {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.contact-item span {
+  font-size: 16px;
+}
