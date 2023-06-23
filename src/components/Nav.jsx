@@ -80,7 +80,11 @@ const Nav = () => {
                         </li>
                            <li class="nav-item">
                               <a class={`nav-link`} href="/orders">My Orders</a>
-                           </li></>)
+                           </li>
+                           <li class="nav-item">
+                              <a class={`nav-link`} href="/feedback">Feedback</a>
+                           </li>
+                        </>)
                      }
                      <li class="nav-item" >
                         <a style={{ color: 'white' }} href="/cart" type="button" class="btn btn-secondary"><FaShoppingCart /> </a>

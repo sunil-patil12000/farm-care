@@ -143,7 +143,7 @@ const Register = () => {
           <div className="input-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
-              type="password"
+              type="text"
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}

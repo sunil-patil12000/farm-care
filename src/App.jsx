@@ -28,6 +28,9 @@ import AdminPanel from './Admin/Dashboard'
 import ThankYouPage from './components/ThankYou'
 import VideoCardList from './components/Videocard'
 import ContactUs from './components/ContactUs'
+import GalleryPage from './components/Gallery'
+import ForgetPassword from './components/ForgetPass'
+import FeedbackForm from './components/Feedback'
 
 
 
@@ -57,12 +60,15 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/contect' element={<Conect />} />
+        <Route path='/gallery' element={<GalleryPage />} />
         <Route path='/admin' element={<AdminLogin />} />
         <Route path='/blog' element={<Disege />} />
         <Route path='/contact' element={<ContactUs />} />
         <Route path='/upload' element={<ProductUploadPage />} />
         <Route path='/video' element={<VideoCardList />} />
         <Route path='/dashboard' element={<AdminPanel />} />
+        <Route path='/forget' element={<ForgetPassword />} />
+        <Route path='/feedback' element={<FeedbackForm />} />
         <Route path='/thankyou' element={<ThankYouPage />} />
         <Route path='/uploadBlog' element={<AgriculturalDiseasesForm />} />
 
